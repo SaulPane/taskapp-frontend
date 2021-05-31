@@ -2,11 +2,13 @@ import axios from "axios";
 import getRandomInt from "../utils/getRandomInt";
 
 const api = axios.create({
-    baseURL: "http://localhost:8000",
+    //baseURL: "http://localhost:8000",
+    baseURL: "https://fsd0321-taskapp-backend.herokuapp.com",
 })
 
 
-const API_URL = 'http://localhost:8000';
+//const API_URL = 'http://localhost:8000';
+const API_URL = 'https://fsd0321-taskapp-backend.herokuapp.com';
 
 function getToken() {
     let token = "";
