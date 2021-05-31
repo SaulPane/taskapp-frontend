@@ -18,6 +18,7 @@ import useLocalStorageString from "../hooks/useLocalStorageString";
 import useAuth from "../hooks/useAuth";
 
 function TaskPage() {
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [boards, setBoards] = useState([]);
@@ -33,12 +34,15 @@ function TaskPage() {
   //   await api.getAllTask()
   //     .then(setTasks);
   // }, []);
+  
   useEffect( async () => {
     const tasks = await api.getAllTask();
     const boards = await api.getAllBoard();
     setTasks(tasks);
     setBoards(boards)
+    setLoading(false);
   }, []);
+
 
   const BoardOptions = boards.map(function (row) {
     return { value: row._id, label: row.title };
@@ -120,6 +124,14 @@ function TaskPage() {
   }
 
   const focusInput = () => ref.current.focus();
+
+  if(loading) {
+    return (
+      <div className="w-96 text-center mx-auto bg-white bg-opacity-70 p-4 m-4 rounded-md">
+        cargando datos...
+      </div>
+    )
+  }
 
   return (
     <div className="w-96 text-center mx-auto bg-white bg-opacity-70 p-4 m-4 rounded-md">

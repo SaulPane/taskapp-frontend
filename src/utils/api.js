@@ -5,19 +5,20 @@ const api = axios.create({
     baseURL: "http://localhost:8000",
 })
 
-let token = "";
 
 const API_URL = 'http://localhost:8000';
 
 function getToken() {
+    let token = "";
     if (localStorage.getItem('token')) {
         token = JSON.parse(localStorage.getItem('token'));
         token = token.token;
     }
+    return token;
 }
 
 const postTask = async(task) => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/task`, {
         method: 'POST',
         mode: 'cors',
@@ -30,7 +31,7 @@ const postTask = async(task) => {
 }
 
 const getAllTask = async() => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/task`, {
         method: 'GET',
         mode: 'cors',
@@ -41,7 +42,7 @@ const getAllTask = async() => {
 }
 
 const getAllBoard = async() => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/board`, {
         method: 'GET',
         mode: 'cors',
@@ -52,7 +53,7 @@ const getAllBoard = async() => {
 }
 
 const deleteTask = async(taskId) => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/task/${taskId}`, {
         method: 'DELETE',
         mode: 'cors',
@@ -63,7 +64,7 @@ const deleteTask = async(taskId) => {
 }
 
 const patchTask = async(taskId, data) => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/task/${taskId}`, {
             method: 'PATCH',
             mode: 'cors',
@@ -77,7 +78,7 @@ const patchTask = async(taskId, data) => {
 }
 
 const clearCompleted = async() => {
-    await getToken()
+    const token = getToken();
     return fetch(`${API_URL}/task/clear`, {
             method: 'POST',
             mode: 'cors',
